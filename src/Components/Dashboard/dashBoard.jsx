@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import AddNotes from "../AddNotes/addNotes"
 import { addNotes, getNotes } from '../../services/notesServices'
+import DisplayNotes from "../DisplayNotes/displayNotes"
 
 const DashBoard = () => {
 
@@ -8,11 +9,10 @@ const DashBoard = () => {
     const [notesList, SetNotesLis] = useState([])
 
     useEffect(() => {
-
         getNotes().then((data) => {
             SetNotesLis(data.data)
         })
-    },[notesList])
+    }, [notesList])
 
     // title, desc,id
     const SaveNotes = (newNotes) => {
@@ -30,7 +30,10 @@ const DashBoard = () => {
     }
 
     return (
-        <AddNotes saveNote={SaveNotes}></AddNotes>
+        <div>
+            <AddNotes saveNote={SaveNotes}></AddNotes>
+            <DisplayNotes notes={notesList}></DisplayNotes>
+        </div>
     )
 }
 
